@@ -1,0 +1,7 @@
+.sourcescode
+
+.DS_Store
+node_modules/
+*.log
+haters/
+.idea/
