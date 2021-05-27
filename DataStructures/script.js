@@ -211,87 +211,162 @@ const game = {
 
 // Let's continue with our football betting app!
 
-// 1. Loop over the game.scored array and print each player name to the console, along with the goal number (Example: "Goal 1: Lewandowski")
-for (const [score, player] of Object.entries(game.scored)) {
-  console.log(`Goal ${Number(score) + 1}: ${player}`);
+// // 1. Loop over the game.scored array and print each player name to the console, along with the goal number (Example: "Goal 1: Lewandowski")
+// for (const [score, player] of Object.entries(game.scored)) {
+//   console.log(`Goal ${Number(score) + 1}: ${player}`);
+// }
+
+// for (const [i, player] of game.scored.entries())
+//   console.log(`Goal ${i + 1}: ${player}`);
+
+// // 2. Use a loop to calculate the average odd and log it to the console (We already studied how to calculate averages, you can go check if you don't remember)
+// let total = 0;
+// for (let odd of Object.values(game.odds)) {
+//   total += odd;
+// }
+// console.log(total / Object.values(game.odds).length);
+
+// // 3. Print the 3 odds to the console, but in a nice formatted way, exaclty like this:
+// //       Odd of victory Bayern Munich: 1.33
+// //       Odd of draw: 3.25
+// //       Odd of victory Borrussia Dortmund: 6.5
+// // Get the team names directly from the game object, don't hardcode them (except for "draw"). HINT: Note how the odds and the game objects have the same property names 😉
+// let teamName;
+// let log;
+// for (let [team, odd] of Object.entries(game.odds)) {
+//   if (team === 'x') {
+//     teamName = 'draw';
+//     log = `Odd of ${teamName}: ${odd}`;
+//   } else {
+//     teamName = game[team];
+//     log = `Odd of victory ${teamName}: ${odd}`;
+//   }
+//   console.log(log);
+// }
+
+// ///// SHORTERRRRRRRRRRRRRRRRRRRRRRR
+// for (let [team, odd] of Object.entries(game.odds)) {
+//   let teamName = team === 'x' ? 'draw' : `victory ${game[team]}`;
+//   console.log(`Odd of ${teamName}: ${odd}`);
+// }
+
+// // BONUS: Create an object called 'scorers' which contains the names of the players who scored as properties, and the number of goals as the value. In this game, it will look like this:
+// //       {
+// //         Gnarby: 1,
+// //         Hummels: 1,
+// //         Lewandowski: 2
+// //       }
+// const scores = {};
+// for (const player of game.scored) {
+//   // console.log(player)
+//   // console.log(scores[player]);
+//   if (scores[player]) {
+//     scores[player] += 1;
+//   } else {
+//     scores[player] = 1;
+//   }
+// }
+// console.log(scores);
+
+// // Shorterrrrrrrrrrrrrr
+// const scorers = {};
+// for (const player of game.scored) {
+//   scorers[player] ? scorers[player]++ : (scorers[player] = 1);
+// }
+// console.log(scorers);
+// // GOOD LUCK 😀
+
+// const arrs = ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels', 'Davies', 'Muller', 'Lewandowski', 'Kimmich', 'Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'];
+
+// const obj = {}
+// for (const arr of arrs) {
+//   // obj[arr] ? obj[arr]++ : (obj[arr] = 1);
+//   !obj[arr] ? obj[arr] = 1 : (obj[arr]++); // Same as above
+
+// }
+// console.log(obj)
+
+// /* SHORT CIRCUIT */
+// // or || 
+// console.log(null || 0 || "" || undefined || "Tim" || false);
+// // and && 
+// console.log(null && 0 && "" && undefined && "Tim" && false);
+// // nullish ??
+// console.log(null ?? 0 ?? "" ?? undefined ?? "Tim" ?? false);
+
+
+///////////////////////////////////////
+// Coding Challenge #4
+
+/* 
+Write a program that receives a list of variable names written in underscore_case and convert them to camelCase.
+
+The input will come from a textarea inserted into the DOM (see code below), and conversion will happen when the button is pressed.
+
+THIS TEST DATA (pasted to textarea)
+underscore_case
+ first_name
+Some_Variable 
+  calculate_AGE
+delayed_departure
+
+SHOULD PRODUCE THIS OUTPUT (5 separate console.log outputs)
+underscoreCase      ✅
+firstName           ✅✅
+someVariable        ✅✅✅
+calculateAge        ✅✅✅✅
+delayedDeparture    ✅✅✅✅✅
+
+HINT 1: Remember which character defines a new line in the textarea 😉
+HINT 2: The solution only needs to work for a variable made out of 2 words, like a_b
+HINT 3: Start without worrying about the ✅. Tackle that only after you have the variable name conversion working 😉
+HINT 4: This challenge is difficult on purpose, so start watching the solution in case you're stuck. Then pause and continue!
+
+Afterwards, test with your own test data!
+
+GOOD LUCK 😀
+*/
+
+
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+
+
+const btn = document.querySelector('button');
+
+// const text = document.querySelector('textarea').value; // not work
+const edited = function() {
+  let output;
+  const text = document.querySelector('textarea').value;
+
+  const arr = text.split('\n');
+
+  for (const [i, row] of arr.entries()) {
+
+    const line = row.toLowerCase().trim().split('_');
+    const [first, second] = line;
+    if (!second) {
+      return;
+    }
+    const str = `${first}${second.replace(second[0], second[0].toUpperCase())}`;
+    output = `${str.padEnd(20)}${'✅'.repeat(i+1)}`;
+    console.log(output);
+
+    // #TODO: Try to add the output to HTML but not work
+    document.body.append(document.createElement('h6'));
+    let h6 = document.querySelector('h6');
+    h6.innerText = output;
+    }  
 }
 
-for (const [i, player] of game.scored.entries())
-  console.log(`Goal ${i + 1}: ${player}`);
-
-// 2. Use a loop to calculate the average odd and log it to the console (We already studied how to calculate averages, you can go check if you don't remember)
-let total = 0;
-for (let odd of Object.values(game.odds)) {
-  total += odd;
-}
-console.log(total / Object.values(game.odds).length);
-
-// 3. Print the 3 odds to the console, but in a nice formatted way, exaclty like this:
-//       Odd of victory Bayern Munich: 1.33
-//       Odd of draw: 3.25
-//       Odd of victory Borrussia Dortmund: 6.5
-// Get the team names directly from the game object, don't hardcode them (except for "draw"). HINT: Note how the odds and the game objects have the same property names 😉
-let teamName;
-let log;
-for (let [team, odd] of Object.entries(game.odds)) {
-  if (team === 'x') {
-    teamName = 'draw';
-    log = `Odd of ${teamName}: ${odd}`;
-  } else {
-    teamName = game[team];
-    log = `Odd of victory ${teamName}: ${odd}`;
-  }
-  console.log(log);
-}
-
-///// SHORTERRRRRRRRRRRRRRRRRRRRRRR
-for (let [team, odd] of Object.entries(game.odds)) {
-  let teamName = team === 'x' ? 'draw' : `victory ${game[team]}`;
-  console.log(`Odd of ${teamName}: ${odd}`);
-}
-
-// BONUS: Create an object called 'scorers' which contains the names of the players who scored as properties, and the number of goals as the value. In this game, it will look like this:
-//       {
-//         Gnarby: 1,
-//         Hummels: 1,
-//         Lewandowski: 2
-//       }
-const scores = {};
-for (const player of game.scored) {
-  // console.log(player)
-  // console.log(scores[player]);
-  if (scores[player]) {
-    scores[player] += 1;
-  } else {
-    scores[player] = 1;
-  }
-}
-console.log(scores);
-
-// Shorterrrrrrrrrrrrrr
-const scorers = {};
-for (const player of game.scored) {
-  scorers[player] ? scorers[player]++ : (scorers[player] = 1);
-}
-console.log(scorers);
-// GOOD LUCK 😀
-
-const arrs = ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels', 'Davies', 'Muller', 'Lewandowski', 'Kimmich', 'Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'];
-
-const obj = {}
-for (const arr of arrs) {
-  // obj[arr] ? obj[arr]++ : (obj[arr] = 1);
-  !obj[arr] ? obj[arr] = 1 : (obj[arr]++); // Same as above
-
-}
-console.log(obj)
-
-/* SHORT CIRCUIT */
-// or || 
-console.log(null || 0 || "" || undefined || "Tim" || false);
-// and && 
-console.log(null && 0 && "" && undefined && "Tim" && false);
-// nullish ??
-console.log(null ?? 0 ?? "" ?? undefined ?? "Tim" ?? false);
+btn.addEventListener('click', edited)
 
 
+
+/*
+underscore_case
+ first_name
+Some_Variable 
+  calculate_AGE
+delayed_departure
+*/
