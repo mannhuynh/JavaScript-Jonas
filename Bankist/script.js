@@ -61,6 +61,63 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+const displayMovements = function (movements) {
+  containerMovements.innerHTML = '';
+  movements.forEach(function (mov, i) {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+    const html = `
+        <div class="movements__row">
+          <div class="movements__type movements__type--${type}">${
+      i + 1
+    } ${type}</div>          
+          <div class="movements__value">${mov}</div>
+        </div>    
+    
+    `;
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+displayMovements(account1.movements);
+
+// Calculate the accounts balance
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((accum, move) => accum + move, 0);
+  labelBalance.innerHTML = `${balance}€`;
+};
+
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((accum, mov) => accum + mov, 0);
+  const outcomes = movements
+    .filter(mov => mov < 0)
+    .reduce((accum, mov) => accum + mov, 0);
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(mov => (mov * 1.2) / 100)
+    .reduce((accum, mov) => accum + mov, 0);
+
+  labelSumIn.innerHTML = incomes + '€';
+  labelSumOut.innerHTML = outcomes + '€';
+  labelSumInterest.innerHTML = `${interest}€`;
+};
+
+calcDisplaySummary(account1.movements);
+
+calcDisplayBalance(account1.movements);
+// Create account username for each owner in the accounts array
+const createUsernames = function (accs) {
+  accs.forEach(acc => {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+createUsernames(accounts);
+// console.log(accounts);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -74,3 +131,34 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+// MAP return a new array//
+// const moo = movements.map((mov, i) => `move ${i+1}: ${mov > 0 ? "deposit" : "withdraw"} ${mov}`)
+// console.log(...moo)
+
+// FILTER return the result array//
+// const filterMove = movements.filter(mov => mov > 0);
+// console.log(filterMove);
+
+// FIND same as FILTER but only return the first match element //
+// const firstWithdraw = movements.find(mov => mov < 0);
+// console.log(firstWithdraw)
+
+// // FIND the account owner name  "Jessica Davis"
+// const jessAccount = accounts.find(account => account.owner === "Jessica Davis")
+// console.log(jessAccount)
+
+// let account;
+// for (const acc of accounts){
+//   if (acc.owner === "Jessica Davis") {
+//     account = acc;
+//     break;
+//   }
+// }
+// console.log(account)
+
+
+// REDUCE return a prime result //
+// const maxMov = movements.reduce((accum, move) => accum > move ? accum : move, movements[0])
+// console.log(maxMov)
+
