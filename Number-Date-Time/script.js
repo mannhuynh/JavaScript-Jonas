@@ -251,3 +251,61 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+
+// // Numbers are stored in floating points
+// console.log(23 === 23.0); // true
+
+// // Careful with the accuration
+// console.log(0.1 + 0.2 === 0.3); // false
+
+// // Convert to number
+// console.log(Number('23'));
+// console.log(+'23');
+
+// // Parsing: the string need to start with number
+// // The Number object is a namespace
+// console.log(Number.parseInt('23px')); // 23
+// console.log(Number.parseInt('e23px', 16)); // 3619
+// console.log(Number.parseFloat('2.3rem')); // 2.3
+
+// // Checking is finite. Better to use it instead of isNaN
+// console.log(Number.isFinite(23)); // true
+// console.log(Number.isFinite(23 / 0)); // false
+
+// // Checking for an integer
+// console.log(Number.isInteger(23)); // true
+
+// // Squareroot
+// console.log(Math.sqrt(25)); // 5
+// console.log(25 ** (1 / 2)); // 5
+
+// // Math.min and Math.max
+
+// // Math.PI
+
+// Random integer in range of (min, max) using Math.random
+// Not including max
+// const randomInt = (min, max) =>
+//   Math.trunc(Math.random() * (max - min)) + min;
+// console.log(randomInt(5, 10));
+
+// let randomArrays = [];
+// for (let i = 0; i < 100; i++) {
+//   randomArrays.push(randomInt(5, 10));
+// }
+// // console.log(...randomArrays)
+// console.log(Math.min(...randomArrays));
+// console.log(Math.max(...randomArrays));
+
+// // Careful with Math.trunc and Math.floor in negative number
+// console.log(Math.floor(-23.3))  // -24
+// console.log(Math.trunc(-23.3))  // -23
+
+// // toFixed() return a string. Use to rounding a number
+// console.log((2.3).toFixed(0)) // 2
+// console.log((2.3).toFixed(3)) // 2.300
+
+// Check more for Number: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+// BigInt(): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
+
